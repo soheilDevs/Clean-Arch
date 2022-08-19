@@ -5,18 +5,15 @@ namespace Domain.ProductAgg;
 
 public class Product:AggregateRoot
 {
-    public Guid Id { get; private set; }
     public string Title { get; private set; }
     public Money Price { get; private set; }
     public ICollection<ProductImages> Images { get;private set; }
-
     public Product(string title,Money price)
     {
         Guard(title);
 
         Title = title;
         Price=price;
-        Id=Guid.NewGuid();
     }
 
     public void Edit(string title, Money price)

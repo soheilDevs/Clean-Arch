@@ -21,7 +21,7 @@ namespace InfraStructure.Persistent.Memory.Products
             return _context.Products;
         }
 
-        public Product GetById(Guid id)
+        public Product GetById(long id)
         {
             return _context.Products.FirstOrDefault(f => f.Id == id);
         }
@@ -48,7 +48,7 @@ namespace InfraStructure.Persistent.Memory.Products
             //
         }
 
-        public bool IsProductExist(Guid id)
+        public bool IsProductExist(long id)
         {
             return _context.Products.Any(p => p.Id == id);
         }
