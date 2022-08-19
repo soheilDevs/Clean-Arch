@@ -2,7 +2,7 @@
 
 namespace Domain.ProductAgg;
 
-public class Product
+public class Product:AggregateRoot
 {
     public Guid Id { get; private set; }
     public string Title { get; private set; }

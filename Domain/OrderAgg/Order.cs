@@ -1,30 +1,27 @@
 ﻿using Domain.OrderAgg;
+using Domain.OrderAgg.Events;
 using Domain.OrderAgg.Services;
 using Domain.Shared;
 
 namespace Domain.Orders;
 
-public class Order
+public class Order:AggregateRoot
 {
-    public long Id { get;private set; }
-    public Guid ProductId { get;private set; }
-   
+    public long UserId { get;private set; }
     public int TotalPrice ;
     public int TotalItems { get; set; }
     public bool IsFinally { get; private set; }
     public DateTime FinallyDate { get; private set; }
     public ICollection<OrderItem> Items { get; private set; }
-    public Order (Guid productId, int count, Money price)
+    public Order (long userId)
     {
-        if (count < 1)
-            throw new ArgumentException();
-
-        ProductId = productId;
+        UserId=userId;
     }
     public void Finally()
     {
         IsFinally = true;
         FinallyDate = DateTime.Now;
+        AddDomainEvent(new OrderFinalized(Id,UserId));
     }
 
     public void AddItem(Guid productId, int count, int price,IOrderDomainService orderService)

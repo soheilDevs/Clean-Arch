@@ -1,6 +1,8 @@
-﻿namespace Domain.ProductAgg;
+﻿using Domain.Shared;
 
-public class ProductImages
+namespace Domain.ProductAgg;
+
+public class ProductImages:BaseEntity
 {
     public ProductImages(Guid productId, string imageName)
     {
