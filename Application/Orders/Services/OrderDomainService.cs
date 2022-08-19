@@ -11,7 +11,7 @@ public class OrderDomainService:IOrderDomainService
     {
         _productRepository = productRepository;
     }
-    public bool IsProductNotExist(Guid productId)
+    public bool IsProductNotExist(long productId)
     {
         var productIsExist = _productRepository.IsProductExist(productId);
 

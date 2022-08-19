@@ -1,4 +1,5 @@
 ﻿using Domain.Shared;
+using Domain.Shared.Exceptions;
 
 namespace Domain.ProductAgg;
 
@@ -42,8 +43,6 @@ public class Product:AggregateRoot
     }
     private void Guard(string title)
     {
-        if (string.IsNullOrWhiteSpace(title))
-            throw new ArgumentNullException("title");
-
+        NullOrEmptyDomainDataException.CheckString(title,nameof(title));
     }
 }

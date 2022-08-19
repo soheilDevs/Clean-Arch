@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="OrderAgg\Exceptions\" />
     <Folder Include="OrderAgg\Services\" />
-    <Folder Include="Shared\" />
     <Folder Include="ProductAgg\" />
   </ItemGroup>
 

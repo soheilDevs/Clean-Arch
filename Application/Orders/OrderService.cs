@@ -16,7 +16,7 @@ public class OrderService:IOrderService
 
     public void AddOrder(AddOrderDto command)
     {
-        var order = new Order(command.ProductId, command.Count, command.Price);
+        var order = new Order(command.ProductId);
         _repository.Add(order);
         _repository.SaveChanges();
     }
@@ -39,10 +39,7 @@ public class OrderService:IOrderService
         var order= _repository.GetById(id);
         return new OrderDto()
         {
-            Count = order.Count,
-            Price = order.Price,
             Id = order.Id,
-            ProductId = order.ProductId
         };
     }
 
@@ -50,10 +47,7 @@ public class OrderService:IOrderService
     {
         return _repository.GetList().Select(order => new OrderDto()
         {
-            Count = order.Count,
-            Price = order.Price,
             Id = order.Id,
-            ProductId = order.ProductId
         }).ToList();
     }
 }

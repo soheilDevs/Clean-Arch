@@ -11,5 +11,5 @@ public interface IProductRepository
     void Update(Product product);
     void Remove(Product product);
     void SaveChanges();
-    bool IsProductExist(Guid id);
+    bool IsProductExist(long id);
 }
