@@ -1,5 +1,4 @@
-﻿using Domain.Orders;
-using Domain.ProductAgg;
+﻿using Domain.ProductAgg;
 
 namespace Domain.Products;
 

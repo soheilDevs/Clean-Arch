@@ -2,8 +2,8 @@
 using Application.Orders.Services;
 using Application.Products;
 using Contracts;
+using Domain.OrderAgg;
 using Domain.OrderAgg.Services;
-using Domain.Orders;
 using Domain.Products;
 using InfraStructure;
 using InfraStructure.Persistent.Memory;

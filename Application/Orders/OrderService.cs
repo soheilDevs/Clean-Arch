@@ -1,6 +1,6 @@
 ﻿using Application.Orders.DTOs;
 using Contracts;
-using Domain.Orders;
+using Domain.OrderAgg;
 
 namespace Application.Orders;
 

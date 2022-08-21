@@ -1,4 +1,4 @@
-﻿using Domain.Orders;
+﻿using Domain.OrderAgg;
 
 namespace InfraStructure.Persistent.Memory.Orders;
 
