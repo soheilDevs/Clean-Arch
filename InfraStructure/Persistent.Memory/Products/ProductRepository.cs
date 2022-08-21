@@ -21,9 +21,10 @@ namespace InfraStructure.Persistent.Memory.Products
             return _context.Products;
         }
 
-        public Product GetById(long id)
+        public async Task<Product> GetById(long id)
         {
-            return _context.Products.FirstOrDefault(f => f.Id == id);
+            var result = _context.Products.FirstOrDefault(f => f.Id == id);
+            return await Task.FromResult(result);
         }
 
         public void Add(Product product)
@@ -33,9 +34,9 @@ namespace InfraStructure.Persistent.Memory.Products
 
         public void Update(Product product)
         {
-            var oldProduct = GetById(product.Id);
-            _context.Products.Remove(oldProduct);
-            Add(product);
+            //var oldProduct = GetById(product.Id);
+            //_context.Products.Remove(oldProduct);
+            //Add(product);
         }
 
         public void Remove(Product product)
@@ -43,7 +44,7 @@ namespace InfraStructure.Persistent.Memory.Products
             _context.Products.Remove(product);
         }
 
-        public void SaveChanges()
+        public async Task SaveChanges()
         {
             //
         }

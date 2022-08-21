@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Products\Create\" />
+    <Folder Include="Products\Edit\" />
     <Folder Include="Shared\" />
     <Folder Include="Orders\DTOs\" />
     <Folder Include="Orders\Services\" />
-    <Folder Include="Products\DTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
