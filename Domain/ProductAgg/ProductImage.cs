@@ -1,15 +1,13 @@
 ﻿using Domain.Shared;
+using Domain.Shared.Exceptions;
 
 namespace Domain.ProductAgg;
 
-public class ProductImages:BaseEntity
+public class ProductImage:BaseEntity
 {
-    public ProductImages(long productId, string imageName)
+    public ProductImage(long productId, string imageName)
     {
-        if (string.IsNullOrWhiteSpace(imageName))
-        {
-            throw new Exception("dada");
-        }
+       NullOrEmptyDomainDataException.CheckString(imageName,"imageName");
         ProductId = productId;
         ImageName = imageName;
     }

@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="OrderAgg\Exceptions\" />
     <Folder Include="OrderAgg\Services\" />
-    <Folder Include="ProductAgg\" />
   </ItemGroup>
 
 </Project>

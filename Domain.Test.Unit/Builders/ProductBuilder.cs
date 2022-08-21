@@ -7,7 +7,7 @@ internal class ProductBuilder
 {
     private string _title = "test";
     private Money _money = new Money(1000000);
-    private ICollection<ProductImages> _images;
+    private ICollection<ProductImage> _images;
 
     public ProductBuilder SetTitle(string title)
     {

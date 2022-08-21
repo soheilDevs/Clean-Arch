@@ -3,14 +3,14 @@ using Domain.Shared.Exceptions;
 using Domain.Test.Unit.Builders;
 using FluentAssertions;
 
-namespace Domain.Test.Unit
+namespace Domain.Test.Unit.ProductAgg
 {
     public class ProductTests
     {
         private ProductBuilder _productBuilder;
         public ProductTests()
         {
-            _productBuilder=new ProductBuilder();
+            _productBuilder = new ProductBuilder();
         }
         [Fact]
         public void Constructor_Should_Create_Product_When_Data_Is_Ok()
@@ -40,9 +40,9 @@ namespace Domain.Test.Unit
         public void Edit_Should_Update_When_Data_Is_Ok()
         {
             //arrange
-            var product= _productBuilder.SetTitle("test2").SetMoney(1000).Build();
+            var product = _productBuilder.SetTitle("test2").SetMoney(1000).Build();
             //act
-            product.Edit("edited",new Money(1000000));
+            product.Edit("edited", new Money(1000000));
             //asserts
             product.Title.Should().Be("edited");
             product.Money.Value.Should().Be(1000000);
@@ -89,7 +89,7 @@ namespace Domain.Test.Unit
             //arrange
             var product = _productBuilder.SetTitle("test2").SetMoney(1000).Build();
             //act
-            var action=()=> product.RemoveImages(0);
+            var action = () => product.RemoveImages(0);
             //asserts
             action.Should().ThrowExactly<NullOrEmptyDomainDataException>()
                 .WithMessage("Image not found");

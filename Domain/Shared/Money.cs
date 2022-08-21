@@ -1,4 +1,6 @@
-﻿namespace Domain.Shared;
+﻿using Domain.Shared.Exceptions;
+
+namespace Domain.Shared;
 
 public class Money:BaseValueObject
 {
@@ -10,7 +12,7 @@ public class Money:BaseValueObject
     public Money(int rialValue)
     {
         if (rialValue < 0)
-            throw new InvalidDataException();
+            throw new InvalidDomainDataException();
 
             Value = rialValue;
     }
