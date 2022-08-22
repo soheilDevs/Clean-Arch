@@ -42,10 +42,10 @@ namespace Domain.Test.Unit.ProductAgg
             //arrange
             var product = _productBuilder.SetTitle("test2").SetMoney(1000).Build();
             //act
-            product.Edit("edited", new Money(1000000));
+            product.Edit("edited", new Money(1000000),"asd");
             //asserts
             product.Title.Should().Be("edited");
-            product.Money.Value.Should().Be(1000000);
+            product.Money.RialValue.Should().Be(1000000);
         }
 
         [Fact]
@@ -56,7 +56,7 @@ namespace Domain.Test.Unit.ProductAgg
             //act
             var action = () =>
             {
-                product.Edit("", new Money(1000000));
+                product.Edit("", new Money(1000000),"asd");
             };
             //asserts
             action.Should().ThrowExactly<NullOrEmptyDomainDataException>()

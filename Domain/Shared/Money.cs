@@ -7,14 +7,14 @@ public class Money:BaseValueObject
     /// <summary>
     ///    Rial
     /// </summary>
-    public int Value { get; }
+    public int RialValue { get;private set; }
 
     public Money(int rialValue)
     {
         if (rialValue < 0)
             throw new InvalidDomainDataException();
 
-            Value = rialValue;
+            RialValue = rialValue;
     }
     public static Money FromRial(int value)
     {
@@ -27,16 +27,16 @@ public class Money:BaseValueObject
 
     public static Money operator +(Money firstMoney, Money money2)
     {
-        return new Money(firstMoney.Value + money2.Value);
+        return new Money(firstMoney.RialValue + money2.RialValue);
     }
 
     public override string ToString()
     {
-        return Value.ToString("#,0");
+        return RialValue.ToString("#,0");
     }
 
     public static Money operator -(Money firstMoney, Money money2)
     {
-        return new Money(firstMoney.Value - money2.Value);
+        return new Money(firstMoney.RialValue - money2.RialValue);
     }
 }

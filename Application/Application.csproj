@@ -7,11 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Orders\" />
     <Folder Include="Products\Create\" />
     <Folder Include="Products\Edit\" />
     <Folder Include="Shared\" />
-    <Folder Include="Orders\DTOs\" />
-    <Folder Include="Orders\Services\" />
   </ItemGroup>
 
   <ItemGroup>

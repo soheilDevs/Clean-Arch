@@ -3,26 +3,33 @@ using Domain.Shared.Exceptions;
 
 namespace Domain.ProductAgg;
 
-public class Product:AggregateRoot
+public class Product : AggregateRoot
 {
+    private Product()
+    {
+        
+    }
+    public string Description { get; private set; }
     public string Title { get; private set; }
     public Money Money { get; private set; }
-    public ICollection<ProductImage> Images { get;private set; }
-    public Product(string title,Money price)
+    public ICollection<ProductImage> Images { get; private set; }
+    public Product(string title, Money price, string description)
     {
         Guard(title);
 
         Title = title;
         Money = price;
+        Description = description;
         Images = new List<ProductImage>();
     }
 
-    public void Edit(string title, Money price)
+    public void Edit(string title, Money price, string description)
     {
-       Guard(title);
+        Guard(title);
 
         Title = title;
         Money = price;
+        Description = description;
     }
 
     public void RemoveImages(long Id)
@@ -37,10 +44,10 @@ public class Product:AggregateRoot
 
     public void AddImages(string imageName)
     {
-        Images.Add(new ProductImage(Id, imageName)); 
+        Images.Add(new ProductImage(Id, imageName));
     }
     private void Guard(string title)
     {
-        NullOrEmptyDomainDataException.CheckString(title,nameof(title));
+        NullOrEmptyDomainDataException.CheckString(title, nameof(title));
     }
 }

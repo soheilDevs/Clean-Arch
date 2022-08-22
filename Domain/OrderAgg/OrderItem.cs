@@ -4,6 +4,10 @@ namespace Domain.OrderAgg;
 
 public class OrderItem:BaseEntity
 {
+    private OrderItem()
+    {
+       
+    }
     public OrderItem(long orderId, int count, long productId, Money price)
     {
         OrderId = orderId;
@@ -12,7 +16,6 @@ public class OrderItem:BaseEntity
         Price = price;
     }
 
-    public long Id { get;private set; }
     public long OrderId { get;protected set; }
     public int Count { get; private set; }
     public long ProductId { get;private set; }
