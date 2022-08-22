@@ -2,6 +2,8 @@
 using Application.Products.Edit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Query.Products.DTOs;
+using Query.Products.GetList;
 
 namespace WebApplication1.Controllers;
 
@@ -14,6 +16,11 @@ public class ProductController : Controller
     public ProductController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+    [HttpGet]
+    public async Task<List<ProductDto>> GetProducts()
+    {
+        return await _mediator.Send(new GetProductListQuery());
     }
     [HttpPost]
     public async Task<IActionResult> CreateProduct(CreateProductCommand command)

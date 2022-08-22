@@ -13,6 +13,7 @@ using InfraStructure.Persistent.Ef.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Query.Products.GetById;
 
 namespace Config
 {
@@ -28,9 +29,10 @@ namespace Config
             //services.AddTransient<IOrderDomainService, OrderDomainService>();
 
             services.AddMediatR(typeof(CreateProductCommand).Assembly);
-            services.AddDbContext<AppDbContext>(optios =>
+            services.AddMediatR(typeof(GetProductByIdQuery).Assembly);
+            services.AddDbContext<AppDbContext>(options =>
             {
-                optios.UseSqlServer(connectionString);
+                options.UseSqlServer(connectionString);
             });
             services.AddScoped<ISmsService, SmsService>();
         }
