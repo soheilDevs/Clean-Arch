@@ -8,12 +8,12 @@
 
   <ItemGroup>
     <Folder Include="Orders\" />
-    <Folder Include="Products\Create\" />
     <Folder Include="Products\Edit\" />
     <Folder Include="Shared\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.2.0" />
     <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
 
