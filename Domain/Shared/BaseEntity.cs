@@ -16,16 +16,6 @@ namespace Domain.Shared
         }
     }
 
-    public class BaseDomainEvent
-    {
-        public DateTime CreationDate { get; protected set; }
-
-        public BaseDomainEvent()
-        {
-            CreationDate = DateTime.Now;
-        }
-    }
-
     public class AggregateRoot : BaseEntity
     {
         private readonly List<BaseDomainEvent> _domainEvents = new List<BaseDomainEvent>();

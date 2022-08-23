@@ -1,4 +1,5 @@
-﻿using Domain.Shared;
+﻿using Domain.ProductAgg.Events;
+using Domain.Shared;
 using Domain.Shared.Exceptions;
 
 namespace Domain.ProductAgg;
@@ -21,6 +22,7 @@ public class Product : AggregateRoot
         Money = price;
         Description = description;
         Images = new List<ProductImage>();
+        AddDomainEvent(new ProductCreated(Id,title));
     }
 
     public void Edit(string title, Money price, string description)
