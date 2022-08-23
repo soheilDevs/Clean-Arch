@@ -1,10 +1,12 @@
 ﻿using Application.Products;
 using Application.Products.Create;
+using Application.Shared;
 using Contracts;
 using Domain.OrderAgg;
 using Domain.OrderAgg.Services;
 using Domain.Products;
 using Domain.Users;
+using FluentValidation;
 using InfraStructure;
 using InfraStructure.Persistent.Ef;
 using InfraStructure.Persistent.Ef.Orders;
@@ -27,9 +29,11 @@ namespace Config
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             //services.AddTransient<IOrderDomainService, OrderDomainService>();
-
+            services.AddTransient(typeof(IPipelineBehavior<,>),typeof(CommandValidationBehavior<,>));
             services.AddMediatR(typeof(CreateProductCommand).Assembly);
             services.AddMediatR(typeof(GetProductByIdQuery).Assembly);
+            services.AddValidatorsFromAssembly(typeof(CreateProductCommandValidator).Assembly);
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);

@@ -12,3 +12,15 @@ public class BaseCommandException:Exception
 
     }
 }
+
+public class InvalidCommandException : BaseCommandException
+{
+    public InvalidCommandException()
+    {
+        
+    }
+    public InvalidCommandException(string message) : base(message)
+    {
+
+    }
+}
