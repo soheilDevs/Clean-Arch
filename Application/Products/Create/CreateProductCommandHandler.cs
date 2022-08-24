@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Application.Products.Create;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,long>
 {
     private readonly IProductRepository _repository;
     private readonly IMediator _mediator;
@@ -16,7 +16,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
         _repository = repository;
         _mediator = mediator;
     }
-    public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         //var validator = new CreateProductCommandValidator();
         //var checker = validator.Validate(request);
@@ -31,6 +31,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
         //  await  _mediator.Publish(@event);
         //}
         await _mediator.Publish(new ProductCreated(product.Id, product.Title));
-        return await Unit.Task;
+        return product.Id;
     }
 }

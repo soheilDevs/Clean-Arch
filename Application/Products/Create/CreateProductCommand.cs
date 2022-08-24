@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Products.Create;
 
-public class CreateProductCommand:IRequest
+public class CreateProductCommand:IRequest<long>
 {
     public CreateProductCommand(string title, int price, string description)
     {
@@ -13,4 +14,5 @@ public class CreateProductCommand:IRequest
     public string Title { get; set; }
     public int Price { get; set; }
     public string Description { get; set; }
+    public IFormFile Image { get; set; }
 }
