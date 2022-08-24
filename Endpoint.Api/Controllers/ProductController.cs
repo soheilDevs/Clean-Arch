@@ -1,5 +1,7 @@
 ﻿using Application.Products.Create;
 using Application.Products.Edit;
+using AutoMapper;
+using Endpoint.Api.ViewModel.Products;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,22 +16,28 @@ namespace Endpoint.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public ProductController(IMediator mediator)
+        private readonly IMapper _mapper;
+        public ProductController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<List<ProductReadModel>> GetProducts()
+        public async Task<List<ProductViewModel>> GetProducts()
         {
-            return await _mediator.Send(new GetProductListQuery());
+            var products = await _mediator.Send(new GetProductListQuery());
+            return _mapper.Map<List<ProductViewModel>>(products).AddLinks();
         }
 
         [HttpGet("{id}")]
-        public async Task<ProductReadModel> GetProductById(long id)
+        public async Task<ActionResult<ProductViewModel>> GetProductById(long id)
         {
-            return await _mediator.Send(new GetProductByIdQuery(id));
+            var product = await _mediator.Send(new GetProductByIdQuery(id));
+            if (product == null)
+                return NotFound("product not found");
+
+            return _mapper.Map<ProductViewModel>(product).AddLinks();
         }
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromForm]CreateProductCommand command)
