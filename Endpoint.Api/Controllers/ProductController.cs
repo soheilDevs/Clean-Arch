@@ -21,18 +21,18 @@ namespace Endpoint.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ProductReadModel>> GetProducts(int pageId)
+        public async Task<List<ProductReadModel>> GetProducts()
         {
             return await _mediator.Send(new GetProductListQuery());
         }
 
         [HttpGet("{id}")]
-        public async Task<ProductReadModel> GetProductById(long id, string test)
+        public async Task<ProductReadModel> GetProductById(long id)
         {
             return await _mediator.Send(new GetProductByIdQuery(id));
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(CreateProductCommand command)
+        public async Task<IActionResult> CreateProduct([FromForm]CreateProductCommand command)
         {
             var result = await _mediator.Send(command);
             var url = Url.Action(nameof(GetProductById), "Product", new {id = result},Request.Scheme);
@@ -46,8 +46,8 @@ namespace Endpoint.Api.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteProduct([FromHeader]long id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(long id)
         {
             //
             return Ok(id);
