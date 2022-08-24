@@ -15,7 +15,10 @@ using InfraStructure.Persistent.Ef.Users;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using Query.Models.Product;
 using Query.Products.GetById;
+using Query.Repositories;
 
 namespace Config
 {
@@ -32,6 +35,13 @@ namespace Config
             services.AddTransient(typeof(IPipelineBehavior<,>),typeof(CommandValidationBehavior<,>));
             services.AddMediatR(typeof(CreateProductCommand).Assembly);
             services.AddMediatR(typeof(GetProductByIdQuery).Assembly);
+
+            services.AddTransient<IProductReadRepository, ProductReadRepository>();
+
+            services.AddSingleton<IMongoClient, MongoClient>(option =>
+            {
+                return new MongoClient("mongodb://localhost:27017");
+            });
             services.AddValidatorsFromAssembly(typeof(CreateProductCommandValidator).Assembly);
 
             services.AddDbContext<AppDbContext>(options =>

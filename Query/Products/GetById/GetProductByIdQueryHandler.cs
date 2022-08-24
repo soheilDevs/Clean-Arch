@@ -1,21 +1,25 @@
 ﻿using InfraStructure.Persistent.Ef;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Query.Models.Product;
 using Query.Products.DTOs;
 
 namespace Query.Products.GetById;
 
-public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDto>
+public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductReadModel>
 {
-    private readonly AppDbContext _context;
+    //private readonly AppDbContext _context;
+    private readonly IProductReadRepository _readRepository;
 
-    public GetProductByIdQueryHandler(AppDbContext context)
+    public GetProductByIdQueryHandler(IProductReadRepository readRepository)
     {
-        _context = context;
+        _readRepository = readRepository;
     }
-    public async Task<ProductDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ProductReadModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
-        var product =await _context.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
-        return ProductMapper.MapProductToDto(product);
+        //var product =await _context.Products.FirstOrDefaultAsync(p => p.Id == request.ProductId);
+        //return ProductMapper.MapProductToDto(product);
+
+        return await _readRepository.GetById(request.ProductId);
     }
 }

@@ -7,10 +7,11 @@ namespace Application.Products.Edit;
 public class EditProductCommandHandler:IRequestHandler<EditProductCommand>
 {
     private readonly IProductRepository _repository;
-
-    public EditProductCommandHandler(IProductRepository repository)
+    private readonly IMediator _mediator;
+    public EditProductCommandHandler(IProductRepository repository, IMediator mediator)
     {
         _repository = repository;
+        _mediator = mediator;
     }
 
     public async Task<Unit> Handle(EditProductCommand request, CancellationToken cancellationToken)
@@ -19,7 +20,10 @@ public class EditProductCommandHandler:IRequestHandler<EditProductCommand>
         product.Edit(request.Title, Money.FromToman(request.Price),request.Description);
         _repository.Update(product);
         await _repository.SaveChanges();
-
+        foreach (var @event in product.DomainEvents)
+        {
+            await _mediator.Publish(@event);
+        }
         return Unit.Value;
     }
 }

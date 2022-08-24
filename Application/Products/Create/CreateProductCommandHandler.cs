@@ -1,4 +1,5 @@
 ﻿using Domain.ProductAgg;
+using Domain.ProductAgg.Events;
 using Domain.Products;
 using Domain.Shared;
 using Domain.Shared.Exceptions;
@@ -25,10 +26,11 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand>
         var product = new Product(request.Title, Money.FromToman(request.Price), request.Description);
         _repository.Add(product);
         await _repository.SaveChanges();
-        foreach (var @event in product.DomainEvents )
-        {
-          await  _mediator.Publish(@event);
-        }
+        //foreach (var @event in product.DomainEvents )
+        //{
+        //  await  _mediator.Publish(@event);
+        //}
+        await _mediator.Publish(new ProductCreated(product.Id, product.Title));
         return await Unit.Task;
     }
 }

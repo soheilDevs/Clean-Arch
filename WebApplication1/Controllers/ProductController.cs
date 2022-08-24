@@ -2,6 +2,7 @@
 using Application.Products.Edit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Query.Models.Product;
 using Query.Products.DTOs;
 using Query.Products.GetList;
 
@@ -18,7 +19,7 @@ public class ProductController : Controller
         _mediator = mediator;
     }
     [HttpGet]
-    public async Task<List<ProductDto>> GetProducts()
+    public async Task<List<ProductReadModel>> GetProducts()
     {
         return await _mediator.Send(new GetProductListQuery());
     }
