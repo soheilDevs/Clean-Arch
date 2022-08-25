@@ -8,10 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using Query.Users.GetByEmail;
 using System.Text;
 
-namespace Endpoint.Api.Controllers
+namespace Endpoint.Api.Controllers.V1
 {
-    [Route("api/[controller]")]
+    [Route("v{varsion:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0",Deprecated = true)]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -25,11 +26,11 @@ namespace Endpoint.Api.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string email, string password)
         {
-            var user =await _mediator.Send(new GetUserByEmailQuery(email));
+            var user = await _mediator.Send(new GetUserByEmailQuery(email));
             if (user == null)
                 return NotFound("کاربری با مشخصات وارد شده یافت نشد");
 
-            if(user.Phone!=password)
+            if (user.Phone != password)
                 return NotFound("کاربری با مشخصات وارد شده یافت نشد");
             var claims = new List<Claim>()
             {
@@ -39,13 +40,13 @@ namespace Endpoint.Api.Controllers
             var secretKey =
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:SignInKey"]));
 
-            var credential = new SigningCredentials(secretKey,SecurityAlgorithms.HmacSha256);
+            var credential = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
                 issuer: _configuration["JwtConfig:Issuer"],
                 audience: _configuration["JwtConfig:Audience"],
-                claims:claims,
-                expires:DateTime.Now.AddDays(7),
-                signingCredentials:credential);
+                claims: claims,
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: credential);
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
             return Ok(jwtToken);
@@ -56,8 +57,8 @@ namespace Endpoint.Api.Controllers
         public async Task<IActionResult> RegisterUsers(RegisterUserCommand command)
         {
 
-            var result =await _mediator.Send(command);
-            return Created("",result);
+            var result = await _mediator.Send(command);
+            return Created("", result);
         }
     }
 }

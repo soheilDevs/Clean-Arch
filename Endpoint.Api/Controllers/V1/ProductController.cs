@@ -10,10 +10,11 @@ using Query.Models.Product;
 using Query.Products.GetById;
 using Query.Products.GetList;
 
-namespace Endpoint.Api.Controllers
+namespace Endpoint.Api.Controllers.V1
 {
-    [Route("[controller]")]
+    [Route("v{varsion:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0",Deprecated = true)]
     public class ProductController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -26,14 +27,14 @@ namespace Endpoint.Api.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<List<ProductViewModel>> GetProducts()
+        public virtual async Task<List<ProductViewModel>> GetProducts()
         {
             var products = await _mediator.Send(new GetProductListQuery());
             return _mapper.Map<List<ProductViewModel>>(products).AddLinks();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductViewModel>> GetProductById(long id)
+        public virtual async Task<ActionResult<ProductViewModel>> GetProductById(long id)
         {
             var product = await _mediator.Send(new GetProductByIdQuery(id));
             if (product == null)
@@ -42,13 +43,13 @@ namespace Endpoint.Api.Controllers
             return _mapper.Map<ProductViewModel>(product).AddLinks();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromForm]CreateProductCommand command)
+        public async Task<IActionResult> CreateProduct([FromForm] CreateProductCommand command)
         {
             var result = await _mediator.Send(command);
-            var url = Url.Action(nameof(GetProductById), "Product", new {id = result},Request.Scheme);
-            return Created(url,result);
+            var url = Url.Action(nameof(GetProductById), "Product", new { id = result }, Request.Scheme);
+            return Created(url, result);
         }
-       
+
         [HttpPut]
         public async Task<IActionResult> EditProduct(EditProductCommand command)
         {
