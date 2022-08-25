@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Query.Models.Product;
+using Query.Models.Product.Repository;
 using Query.Products.DTOs;
 
 namespace Query.Products.GetList;

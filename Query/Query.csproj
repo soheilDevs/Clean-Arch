@@ -10,9 +10,12 @@
 		<PackageReference Include="MongoDB.Driver" Version="2.17.1" />
 	</ItemGroup>
   <ItemGroup>
+    <Folder Include="EventHandlers\Users\" />
+    <Folder Include="Models\Users\Repository\" />
     <Folder Include="Products\GetById\" />
     <Folder Include="Products\DTOs\" />
-    <Folder Include="Users\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="Users\GetByEmail\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InfraStructure\InfraStructure.csproj" />

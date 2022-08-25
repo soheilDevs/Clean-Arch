@@ -1,6 +1,7 @@
 ﻿using Application.Products;
 using Application.Products.Create;
 using Application.Shared;
+using Application.Users;
 using Contracts;
 using Domain.OrderAgg;
 using Domain.OrderAgg.Services;
@@ -16,9 +17,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using Query.Models.Product;
+using Query.Models.Product.Repository;
+using Query.Models.Users.Repository;
 using Query.Products.GetById;
-using Query.Repositories;
 
 namespace Config
 {
@@ -28,6 +29,8 @@ namespace Config
         {
             //services.AddTransient<IOrderService, OrderService>();
             //services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IUserDomainService, UserDomainService>();
+
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
@@ -36,6 +39,7 @@ namespace Config
             services.AddMediatR(typeof(CreateProductCommand).Assembly);
             services.AddMediatR(typeof(GetProductByIdQuery).Assembly);
 
+            services.AddTransient<IUserReadRepository, UserReadRepository>();
             services.AddTransient<IProductReadRepository, ProductReadRepository>();
 
             services.AddSingleton<IMongoClient, MongoClient>(option =>

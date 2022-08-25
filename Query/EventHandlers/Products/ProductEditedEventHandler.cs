@@ -2,6 +2,7 @@
 using Domain.Products;
 using MediatR;
 using Query.Models.Product;
+using Query.Models.Product.Repository;
 
 namespace Query.EventHandlers.Products;
 
