@@ -1,9 +1,10 @@
-﻿using Query.Models.Users;
+﻿using MediatR;
+using Query.Models.Users;
 using Query.Models.Users.Repository;
 
 namespace Query.Users.GetByEmail;
 
-public class GetUserByEmailQueryHandler
+public class GetUserByEmailQueryHandler:IRequestHandler<GetUserByEmailQuery,UserReadModel>
 {
     private readonly IUserReadRepository _readRepository;
 
